@@ -1,2 +1,3 @@
-# VR-Interactivity
-Several scripts handling interactivity in VR
+Accessing help for Unity from Visual Studio
+Ctrl + Alt + M
+Ctrl + H
