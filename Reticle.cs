@@ -15,7 +15,7 @@ public class Reticle : MonoBehaviour
         originalScale = reticleImageTransform.localScale;
     }
 
-	public void SetPosition()
+    public void SetPosition()
     {
         reticleImageTransform.position = trackedPointer.position + trackedPointer.forward * defaultDistance;
         reticleImageTransform.localScale = originalScale;
