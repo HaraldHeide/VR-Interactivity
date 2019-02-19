@@ -10,7 +10,9 @@ public class SteamVR20_Teleporter : MonoBehaviour
 
     private SteamVR_Behaviour_Pose m_Pose = null;
     private bool m_HasPosition = false;
-
+    private bool m_IsTeleporting = false;
+    private float m_FadeTime = 0.5f;
+    
     private void Awake()
     {
         m_Pose = GetComponent<SteamVR_Behaviour_Pose>();
@@ -28,13 +30,40 @@ public class SteamVR20_Teleporter : MonoBehaviour
 
     private void TryTeleport()
     {
+    //Check if valid position, and if already teleporting
+        if(!m_HasPosition || m_IsTeleporting)
+        {
+            return;
+        }
         
+        //Get camera rig and head position
+        Transform cameraqRig = SteamVR_Render.Top().origin;
+        Vector3 headPosition = SteamVR_Render.Top().head.position;
+        
+        //Figure out translation
+        Vector3 GroundPosition = new Vector3(headposition.x, cameraRig.position.y, headPosition.z);
+        Vector3 translateVector = m_Pointer.transform.position groundPosition;
+        
+        //Move
+        StartCoroutine(MoveRig(cameraRig, translateVector));
     }
 
 
     private IEnumerator MoveRig(Transform cameraRig, Vector3 Translation)
     {
-        yield return null;
+    
+        //Flag
+        m_IsTeleporting = true;
+        //Fade to black
+        SteamVR_Fade.Start(Color.black, m_FadeTime, true);
+        //Apply translation
+        yield return new WaitforSeconds(m_FadeTime);
+        cameraRog.position += translation;
+        //Fade to clear
+        SteamVR_Fade.Start(Color.clear, m_FadeTime, true);
+        //De-flag
+        
+        m_IsTeleporting = false;
     }
 
     private bool UpdatePointer()
